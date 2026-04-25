@@ -2,6 +2,8 @@ export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday'
 
 export type WeekNumber = 1 | 2 | 3 | 4 | 5 | 26
 
+export type NormalWeekNumber = Exclude<WeekNumber, 26>
+
 export type TaskKind =
   | 'lesson'
   | 'practice'
@@ -132,6 +134,13 @@ export interface CurriculumWeek {
   isCapstone: boolean
 }
 
+export interface CurriculumCatalog {
+  weeks: readonly CurriculumWeek[]
+  assessments: readonly WeeklyAssessment[]
+  studyMaterials: readonly StudyMaterial[]
+  capstone: CapstoneProject
+}
+
 export interface CapstoneMilestone {
   id: `capstone-${number}`
   title: string
@@ -198,3 +207,13 @@ export interface ProgressSummary {
 export const LOCAL_STORAGE_KEYS = {
   progress: 'ba-mastery-progress',
 } as const
+
+export const WEEK_DAYS = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+] as const satisfies readonly Weekday[]
+
+export const WEEK_NUMBERS = [1, 2, 3, 4, 5, 26] as const satisfies readonly WeekNumber[]

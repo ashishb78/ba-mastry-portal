@@ -63,3 +63,5 @@ export const capstone = {
   assessmentId: 'test-week-26',
   materialIds: ['sm-w26-capstone-charter', 'sm-w26-capstone-rubric', 'sm-w26-demo-checklist'],
 } as const satisfies CapstoneProject
+
+export const capstoneMilestones = capstone.milestones

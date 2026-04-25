@@ -1,4 +1,4 @@
-import type { WeeklyAssessment } from '../types'
+import type { AssessmentId, WeekNumber, WeeklyAssessment } from '../types'
 
 export const assessments = [
   {
@@ -62,3 +62,17 @@ export const assessments = [
     topics: ['problem framing', 'requirements', 'analysis', 'recommendations', 'presentation'],
   },
 ] as const satisfies readonly WeeklyAssessment[]
+
+export const assessmentsById = assessments.reduce<
+  Record<AssessmentId, WeeklyAssessment>
+>((lookup, assessment) => {
+  lookup[assessment.id] = assessment
+  return lookup
+}, {} as Record<AssessmentId, WeeklyAssessment>)
+
+export const assessmentsByWeek = assessments.reduce<
+  Record<WeekNumber, WeeklyAssessment>
+>((lookup, assessment) => {
+  lookup[assessment.weekNumber] = assessment
+  return lookup
+}, {} as Record<WeekNumber, WeeklyAssessment>)

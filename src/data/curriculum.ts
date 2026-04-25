@@ -1,4 +1,15 @@
-import type { CurriculumWeek } from '../types'
+import { assessments } from './assessments'
+import type {
+  AssessmentId,
+  AssessmentProgress,
+  CurriculumProgress,
+  CurriculumWeek,
+  LocalStorageProgressState,
+  TaskId,
+  TaskProgress,
+  WeekNumber,
+  WeekProgress,
+} from '../types'
 
 export const curriculum = [
   {
@@ -380,3 +391,75 @@ export const curriculum = [
     isCapstone: true,
   },
 ] as const satisfies readonly CurriculumWeek[]
+
+export const curriculumByWeek = curriculum.reduce<
+  Record<WeekNumber, CurriculumWeek>
+>((lookup, week) => {
+  lookup[week.weekNumber] = week
+  return lookup
+}, {} as Record<WeekNumber, CurriculumWeek>)
+
+function createEmptyTaskProgress(taskId: TaskId): TaskProgress {
+  return {
+    taskId,
+    status: 'not-started',
+    completedAt: null,
+    minutesSpent: 0,
+  }
+}
+
+function createEmptyAssessmentProgress(
+  assessmentId: AssessmentId,
+): AssessmentProgress {
+  return {
+    assessmentId,
+    status: 'not-started',
+    score: null,
+    completedAt: null,
+  }
+}
+
+function createEmptyWeekProgress(weekNumber: WeekNumber): WeekProgress {
+  return {
+    weekNumber,
+    taskIdsCompleted: [],
+    assessmentCompleted: false,
+    updatedAt: new Date(0).toISOString(),
+  }
+}
+
+export function createInitialCurriculumProgress(): CurriculumProgress {
+  const tasks = Object.fromEntries(
+    curriculum.flatMap((week) =>
+      week.tasks.map((task) => [task.id, createEmptyTaskProgress(task.id)]),
+    ),
+  ) as Record<TaskId, TaskProgress>
+
+  const weeklyAssessments = Object.fromEntries(
+    assessments.map((assessment) => [
+      assessment.id,
+      createEmptyAssessmentProgress(assessment.id),
+    ]),
+  ) as Record<AssessmentId, AssessmentProgress>
+
+  const weeks = Object.fromEntries(
+    curriculum.map((week) => [
+      week.weekNumber,
+      createEmptyWeekProgress(week.weekNumber),
+    ]),
+  ) as Record<WeekNumber, WeekProgress>
+
+  return {
+    tasks,
+    assessments: weeklyAssessments,
+    weeks,
+  }
+}
+
+export function createInitialLocalStorageProgressState(): LocalStorageProgressState {
+  return {
+    version: 1,
+    savedAt: new Date(0).toISOString(),
+    curriculum: createInitialCurriculumProgress(),
+  }
+}

@@ -1,4 +1,5 @@
-import type { StudyMaterial } from '../types'
+import { WEEK_NUMBERS } from '../types'
+import type { MaterialId, StudyMaterial, WeekNumber } from '../types'
 
 export const studyMaterials = [
   {
@@ -164,3 +165,19 @@ export const studyMaterials = [
     resourceLabel: 'Demo checklist',
   },
 ] as const satisfies readonly StudyMaterial[]
+
+export const studyMaterialsById = studyMaterials.reduce<
+  Record<MaterialId, StudyMaterial>
+>((lookup, material) => {
+  lookup[material.id] = material
+  return lookup
+}, {} as Record<MaterialId, StudyMaterial>)
+
+export const studyMaterialsByWeek = WEEK_NUMBERS.reduce<
+  Record<WeekNumber, readonly StudyMaterial[]>
+>((lookup, weekNumber) => {
+  lookup[weekNumber] = studyMaterials.filter(
+    (material) => material.weekNumber === weekNumber,
+  )
+  return lookup
+}, {} as Record<WeekNumber, readonly StudyMaterial[]>)
