@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import PageHeader from '../components/PageHeader'
 
 export default function WeeksPage() {
   const weeks = Array.from({ length: 12 }, (_, index) => ({
@@ -21,20 +22,11 @@ export default function WeeksPage() {
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-primary)]">
-            Weeks
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text)]">
-            Weekly learning map
-          </h2>
-        </div>
-        <p className="max-w-xl text-sm leading-7 text-[var(--color-muted)]">
-          Placeholder cards are ready for week-by-week curriculum details,
-          assignments, and assessments.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Weeks"
+        title="12-week learning map"
+        description="Each week route is ready for BA objectives, study tasks, assignments, and review checkpoints."
+      />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {weeks.map((week) => (
@@ -50,8 +42,8 @@ export default function WeeksPage() {
               {week.title}
             </h3>
             <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">
-              Add learning objectives, reading lists, practice tasks, and review
-              checkpoints for this week.
+              Placeholder page ready for learning objectives, reading lists,
+              exercises, and review checkpoints.
             </p>
             <div className="mt-5 text-sm font-medium text-[var(--color-accent)] transition group-hover:translate-x-1">
               Open week workspace

@@ -1,66 +1,45 @@
-export default function DashboardPage() {
-  const summaryCards = [
-    {
-      title: 'Current focus',
-      value: 'Week 1 foundations',
-      tone: 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]',
-    },
-    {
-      title: 'Completion target',
-      value: '12 weeks',
-      tone: 'bg-[var(--color-success)]/10 text-[var(--color-success)]',
-    },
-    {
-      title: 'Capstone status',
-      value: 'Scope pending',
-      tone: 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]',
-    },
-  ]
+import PlaceholderCard from '../components/PlaceholderCard'
+import PageHeader from '../components/PageHeader'
 
+export default function DashboardPage() {
   return (
     <section className="space-y-6">
-      <div className="rounded-[2rem] bg-[var(--color-text)] px-6 py-8 text-white shadow-[var(--shadow-soft)] sm:px-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
-          Dashboard
-        </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          Your Business Analyst learning hub
-        </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-white/80">
-          This starter dashboard gives the portal a polished shell for routing,
-          navigation, and future learning widgets without locking us into heavy
-          data structures too early.
-        </p>
+      <div className="rounded-[2rem] bg-[linear-gradient(135deg,rgba(44,62,80,1)_0%,rgba(52,152,219,0.92)_100%)] px-6 py-8 text-white shadow-[var(--shadow-soft)] sm:px-8">
+        <PageHeader
+          eyebrow="Dashboard"
+          title="Business Analyst Mastery at a glance"
+          description="This dashboard is the landing shell for progress snapshots, learning highlights, and quick navigation into the course workspace."
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        {summaryCards.map((card) => (
-          <article
-            key={card.title}
-            className="rounded-[1.5rem] border border-[var(--color-border)] bg-white p-5 shadow-[var(--shadow-card)]"
-          >
-            <div
-              className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${card.tone}`}
-            >
-              {card.title}
-            </div>
-            <p className="mt-4 text-xl font-semibold text-[var(--color-text)]">
-              {card.value}
-            </p>
-          </article>
-        ))}
+        <PlaceholderCard
+          title="Weekly progress summary"
+          description="Reserve this space for completion stats, pace tracking, and active learning goals."
+          accent="blue"
+        />
+        <PlaceholderCard
+          title="Capstone milestone tracker"
+          description="Use this card later for project status, due dates, and deliverable health."
+          accent="green"
+        />
+        <PlaceholderCard
+          title="Upcoming reminders"
+          description="Add deadlines, revision checkpoints, or mentor follow-ups here."
+          accent="amber"
+        />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-card)]">
           <h3 className="text-lg font-semibold text-[var(--color-text)]">
-            Portal roadmap
+            Initial dashboard modules
           </h3>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {[
-              ['Dashboard', 'Progress snapshots and study momentum'],
-              ['Weekly learning', 'Structured topic-by-topic BA practice'],
-              ['Capstone', 'A project area for synthesis and delivery'],
+              ['Overview', 'Course health, focus metrics, and current week context.'],
+              ['Momentum', 'A home for streaks, notes, and assessment readiness.'],
+              ['Actions', 'Quick links to the next task, file, or study session.'],
             ].map(([title, description]) => (
               <div
                 key={title}
@@ -77,17 +56,17 @@ export default function DashboardPage() {
 
         <article className="rounded-[1.75rem] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-card)]">
           <h3 className="text-lg font-semibold text-[var(--color-text)]">
-            Next build steps
+            Shell notes
           </h3>
           <ul className="mt-5 space-y-3 text-sm leading-6 text-[var(--color-muted)]">
             <li className="rounded-2xl bg-[var(--color-surface)] px-4 py-3">
-              Wire real curriculum and completion tracking into dashboard cards.
+              The route structure is live and ready for real data wiring.
             </li>
             <li className="rounded-2xl bg-[var(--color-surface)] px-4 py-3">
-              Add week-level objectives, exercises, and downloadable templates.
+              The layout already adapts from stacked mobile view to sidebar desktop view.
             </li>
             <li className="rounded-2xl bg-[var(--color-surface)] px-4 py-3">
-              Connect settings to local preferences for study behavior.
+              Placeholder blocks can be replaced without redesigning the shell.
             </li>
           </ul>
         </article>
