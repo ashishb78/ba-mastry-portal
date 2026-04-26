@@ -6,6 +6,7 @@ import {
   calculateStreak,
   calculateTopicMastery,
   createInitialProgress,
+  importProgressState,
   isWeekUnlocked,
   loadProgress,
   markTaskComplete,
@@ -69,6 +70,18 @@ export function useProgress() {
     return savedState
   }
 
+  function replaceProgressState(nextState: unknown) {
+    const importedState = importProgressState(nextState)
+
+    if (!importedState) {
+      return null
+    }
+
+    const savedState = saveProgress(importedState)
+    setProgressState(savedState)
+    return savedState
+  }
+
   return {
     progressState,
     curriculum: progressState.curriculum,
@@ -81,6 +94,7 @@ export function useProgress() {
     initializeProgress,
     loadProgress: reloadProgress,
     saveProgress: saveCurrentProgress,
+    replaceProgressState,
     resetProgress,
     markTaskComplete: markComplete,
     markTaskIncomplete: markIncomplete,

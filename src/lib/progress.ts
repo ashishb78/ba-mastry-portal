@@ -160,6 +160,20 @@ export function createInitialProgress() {
   return createInitialLocalStorageProgressState()
 }
 
+export function importProgressState(state: unknown) {
+  if (!state || typeof state !== 'object') {
+    return null
+  }
+
+  const candidate = state as Partial<LocalStorageProgressState>
+
+  if (candidate.version !== 1 || !candidate.curriculum) {
+    return null
+  }
+
+  return normalizeProgressState(candidate as LocalStorageProgressState)
+}
+
 export function saveProgress(state: LocalStorageProgressState) {
   const nextState = {
     ...state,
